@@ -13,6 +13,8 @@
 		5F9D4CF4272DFA6800189F44 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F9D4CF2272DFA6800189F44 /* Main.storyboard */; };
 		5F9D4CF6272DFA6D00189F44 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F9D4CF5272DFA6D00189F44 /* Assets.xcassets */; };
 		5F9D4CF9272DFA6D00189F44 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F9D4CF7272DFA6D00189F44 /* LaunchScreen.storyboard */; };
+		5FBE011F272E17F400277733 /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBE011E272E17F400277733 /* Meal.swift */; };
+		5FBE0121272E183D00277733 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBE0120272E183D00277733 /* Food.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,9 @@
 		5F9D4CF5272DFA6D00189F44 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5F9D4CF8272DFA6D00189F44 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5F9D4CFA272DFA6D00189F44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5F9D4D01272E0B0B00189F44 /* joao.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = joao.playground; path = ../../joao.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		5FBE011E272E17F400277733 /* Meal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
+		5FBE0120272E183D00277733 /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +61,42 @@
 		5F9D4CEB272DFA6800189F44 /* eggplant-brownie1 */ = {
 			isa = PBXGroup;
 			children = (
+				5FBE0124272E18A500277733 /* Views */,
+				5FBE0123272E189300277733 /* Controllers */,
+				5FBE0122272E186B00277733 /* Models */,
 				5F9D4CEC272DFA6800189F44 /* AppDelegate.swift */,
 				5F9D4CEE272DFA6800189F44 /* SceneDelegate.swift */,
-				5F9D4CF0272DFA6800189F44 /* ViewController.swift */,
-				5F9D4CF2272DFA6800189F44 /* Main.storyboard */,
 				5F9D4CF5272DFA6D00189F44 /* Assets.xcassets */,
+				5F9D4D01272E0B0B00189F44 /* joao.playground */,
 				5F9D4CF7272DFA6D00189F44 /* LaunchScreen.storyboard */,
 				5F9D4CFA272DFA6D00189F44 /* Info.plist */,
 			);
 			path = "eggplant-brownie1";
+			sourceTree = "<group>";
+		};
+		5FBE0122272E186B00277733 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5FBE011E272E17F400277733 /* Meal.swift */,
+				5FBE0120272E183D00277733 /* Food.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5FBE0123272E189300277733 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				5F9D4CF0272DFA6800189F44 /* ViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		5FBE0124272E18A500277733 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5F9D4CF2272DFA6800189F44 /* Main.storyboard */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,7 +170,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FBE011F272E17F400277733 /* Meal.swift in Sources */,
 				5F9D4CF1272DFA6800189F44 /* ViewController.swift in Sources */,
+				5FBE0121272E183D00277733 /* Food.swift in Sources */,
 				5F9D4CED272DFA6800189F44 /* AppDelegate.swift in Sources */,
 				5F9D4CEF272DFA6800189F44 /* SceneDelegate.swift in Sources */,
 			);
