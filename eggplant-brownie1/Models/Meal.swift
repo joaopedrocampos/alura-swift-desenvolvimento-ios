@@ -7,7 +7,7 @@
 
 import UIKit 
 
-class Meal: NSObject {
+class Meal: NSObject, NSCoding {
     let name: String
     let hapiness: Int
     let foods: [Food]
@@ -18,6 +18,22 @@ class Meal: NSObject {
         self.foods = foods
     }
 
+    // MARK: - NSCoding
+
+    func encode(with coder: NSCoder) {
+        coder.encode(name, forKey: "name")
+        coder.encode(hapiness, forKey: "hapiness")
+        coder.encode(foods, forKey: "foods")
+    }
+
+    required init?(coder: NSCoder) {
+        name = coder.decodeObject(forKey: "name") as! String
+        hapiness = coder.decodeInteger(forKey: "hapiness")
+        foods = coder.decodeObject(forKey: "foods") as! [Food]
+    }
+
+    // MARK: - Methods
+
     func calculateTotalCalories () -> Double {
         var total: Double = 0
 
@@ -26,5 +42,15 @@ class Meal: NSObject {
         }
 
         return total
+    }
+
+    func getIngredientsMessage() -> String {
+        var alertMessage = "Felicidade \(self.hapiness)\n"
+
+        for food in self.foods {
+            alertMessage += "\(food.name)\n"
+        }
+
+        return alertMessage
     }
 }
