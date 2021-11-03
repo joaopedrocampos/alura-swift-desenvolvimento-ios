@@ -20,8 +20,9 @@ class MealsTableViewController: UITableViewController, MealsTableViewControllerD
     ]
 
     override func viewDidLoad() {
-        super.viewDidLoad()
-        print("MealsTableViewController loaded")
+        guard let savedMeals = MealDAO().load() else { return }
+
+        meals = savedMeals
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -34,6 +35,9 @@ class MealsTableViewController: UITableViewController, MealsTableViewControllerD
         let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
         let meal = meals[indexPath.row]
 
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(showDetails(_:)))
+        cell.addGestureRecognizer(longPress)
+
         cell.textLabel?.text = meal.name
 
         return cell
@@ -42,7 +46,25 @@ class MealsTableViewController: UITableViewController, MealsTableViewControllerD
     func addMeal(_ meal: Meal) -> Void {
         meals.append(meal)
 
+        MealDAO().save(meals)
+
         tableView.reloadData()
+    }
+
+    @objc func showDetails(_ gesture: UIGestureRecognizer) {
+        if gesture.state == .began {
+            let cell = gesture.view as! UITableViewCell
+
+            guard let indexPath = tableView.indexPath(for: cell) else { return }
+
+            let meal = meals[indexPath.row]
+
+            RemoveMealViewController(viewController: self).show(meal, handler: {
+                alert in
+                self.meals.remove(at: indexPath.row)
+                self.tableView.reloadData()
+            })
+        }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -23,7 +23,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     // MARK: - IBOutlets
 
     
-    @IBOutlet weak var foodsTableView: UITableView!
+    @IBOutlet weak var foodsTableView: UITableView?
     @IBOutlet var nomeTextField: UITextField?
     @IBOutlet var felicidadeTextField: UITextField?
 
@@ -33,17 +33,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let addFoodButton = UIBarButtonItem(title: "Adicionar", style: .plain, target: self, action: #selector(addFood))
 
         navigationItem.rightBarButtonItem = addFoodButton
+
+        guard let savedIngredients = FoodDAO().load() else { return }
+
+        ingredients = savedIngredients
     }
 
     @objc func addFood () {
         let addIngredientsViewController = AddIngredientsViewController(delegate: self)
         navigationController?.pushViewController(addIngredientsViewController, animated: true)
-    }
-
-    func addMeal(_ food: Food) -> Void {
-        ingredients.append(food)
-        foodsTableView.reloadData()
-
     }
 
     // MARK: - UITableViewDataSource
@@ -84,23 +82,49 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     // MARK: - IBActions
 
     @IBAction func adicionar() {
-        guard let mealName = nomeTextField?.text else {
-            print("Nome é obrigatório")
+        guard let meal = self.getMealObject() else {
+            Alert(message: "Erro ao ler formulário", title: "Erro", buttonMessage: "Ok", viewController: self).showAlert()
             return
         }
-
-        guard let mealHapiness = felicidadeTextField?.text, let hapiness = Int(mealHapiness) else {
-            print("Felicidade é obrigatório")
-            return
-        }
-
-        let meal = Meal(name: mealName, hapiness: hapiness, foods: selectedIngredients)
 
         print("Comi \(meal.name) e fiquei com felicidade: \(meal.hapiness)")
 
         delegate?.addMeal(meal)
 
         navigationController?.popViewController(animated: true)
+    }
+
+    // MARK: - Methods
+
+    func getMealObject() -> Meal? {
+        guard let mealName = nomeTextField?.text else {
+            return nil
+        }
+
+        guard let mealHapiness = felicidadeTextField?.text, let hapiness = Int(mealHapiness) else {
+            return nil
+        }
+
+        let meal = Meal(name: mealName, hapiness: hapiness, foods: selectedIngredients)
+
+        return meal
+    }
+
+    func addMeal(_ food: Food) -> Void {
+        if let tableView = foodsTableView {
+            self.saveIngredients(food)
+            tableView.reloadData()
+        } else {
+            let alert = Alert(message: "Problema ao adicionar ingrediente", title: "Erro", buttonMessage: "Ok", viewController: self)
+
+            alert.showAlert()
+        }
+    }
+
+    func saveIngredients(_ food: Food) -> Void {
+        ingredients.append(food)
+
+        FoodDAO().save(ingredients)
     }
 
 }
